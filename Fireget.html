@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela coletora de dados</title>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js";></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <style>
+        table {
+            width: 25%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>COLETOR DE DADOS NO FIREBASE</h2>
+    <p>Ocorrerá uma atualização automática dos dados num intervalo próximo de cinco minutos.</p>
+    <p>Esses dados tem como origem equipamento coletor de temperatura e posterior publicação no Firebase.</p>
+    <table>
+        <tr>
+            <th>Dados da última leitura em:</th>
+            <th>Valor</th>
+        </tr>
+        <tbody id="tabela-corpo">
+            <script>
+                // Configuração de autenticação do Firebase
+                const firebaseConfig = {
+                    apiKey: "AIzaSyD-IIG2CRTlEvkGePu5-P2oINKdepMfNIA",
+                    authDomain: "ctc-jessica.firebaseapp.com",
+                    databaseURL: "https://ctc-jessica-default-rtdb.firebaseio.com",
+                    projectId: "ctc-jessica",
+                    storageBucket: "ctc-jessica.firebasestorage.app",
+                    messagingSenderId: "796493326506",
+                    appId: "1:796493326506:web:c54f5a972c9f7d7c3508d3"
+                };
+
+                // Inicializa o Firebase
+                firebase.initializeApp(firebaseConfig);
+                const database = firebase.database();
+
+                // Referência ao nó do banco de dados do firebase
+                const dataDia = database.ref("Dia");
+                const dataMes = database.ref("Mes");
+                const dataAno = database.ref("Ano");
+                const dataHor = database.ref("Hor");
+                const dataMin = database.ref("Min");
+                const dataEq1 = database.ref("Eq1");
+                const dataEq2 = database.ref("Eq2");
+                const dataEq3 = database.ref("Eq3");
+                const dataEq4 = database.ref("Eq4");
+                const dataEq5 = database.ref("Eq5");
+                const dataSin= database.ref("Sinal");
+                const dataVbat = database.ref("vBat");
+
+
+                // Obtém os dados do banco em tempo real
+                dataDia.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${0}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+                
+                dataMes.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${1}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+                
+                dataAno.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${2}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+                
+                dataHor.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${3}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+                
+                dataMin.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${4}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataEq1.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${5}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataEq2.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${6}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataEq3.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${7}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataEq4.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${8}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataEq5.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${9}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+
+                dataSin.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${11}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+                
+                dataVbat.on("value", (snapshot) => {
+                    const data = snapshot.val();
+                    document.getElementById(`valor-${10}`).textContent = data;
+                    
+                }, (error) => {
+                    console.error("Erro ao obter dados: ", error);
+                });
+               
+                
+                // tabela
+                const dados = [
+                    "dia", "mês", "ano", "hora", "minuto", "equipamento 01",
+                    "equipamento 02", "equipamento 03", "equipamento 04",
+                    "equipamento 05", "tensão da bateria", 
+                    "sinal GSM"
+                ];
+
+                let tabelaCorpo = document.getElementById("tabela-corpo");
+                
+                dados.forEach((item, index) => {
+                    let linha = document.createElement("tr");
+                    
+                    let colunaTexto = document.createElement("td");
+                    colunaTexto.textContent = item;
+                    linha.appendChild(colunaTexto);
+                    
+                    let colunaValor = document.createElement("td");
+                    colunaValor.id = `valor-${index}`; 
+                    // ^ Adiciona um ID único para cada campo
+ 
+                    linha.appendChild(colunaValor);
+                    
+                    tabelaCorpo.appendChild(linha);
+                });
+
+
+            </script>
+        </tbody>
+    </table>
+</body>
+</html>
